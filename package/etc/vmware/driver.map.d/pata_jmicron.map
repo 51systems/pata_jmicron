@@ -1,1 +1,5 @@
-regtype=linux,bus=pci,id=197b:2368 0000:0000,driver=jmicron,class=storage
+regtype=linux,bus=pci,id=197b:2361 0000:0000,driver=pata_jmicron,class=storage
+regtype=linux,bus=pci,id=197b:2363 0000:0000,driver=pata_jmicron,class=storage
+regtype=linux,bus=pci,id=197b:2365 0000:0000,driver=pata_jmicron,class=storage
+regtype=linux,bus=pci,id=197b:2366 0000:0000,driver=pata_jmicron,class=storage
+regtype=linux,bus=pci,id=197b:2368 0000:0000,driver=pata_jmicron,class=storage

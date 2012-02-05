@@ -16,6 +16,7 @@
 #include <scsi/scsi_host.h>
 #include <linux/libata.h>
 #include <linux/ata.h>
+
 #define DRV_NAME        "pata_jmicron"
 #define DRV_VERSION     "0.1.5"
 
@@ -194,16 +195,11 @@ static int jmicron_init_one (struct pci_dev *pdev, const struct pci_device_id *i
 }
 
 static const struct pci_device_id jmicron_pci_tbl[] = {
-	{ PCI_VENDOR_ID_JMICRON, PCI_DEVICE_ID_JMICRON_JMB361,
-	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE << 8, 0xffff00, 361 },
-	{ PCI_VENDOR_ID_JMICRON, PCI_DEVICE_ID_JMICRON_JMB363,
-	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE << 8, 0xffff00, 363 },
-	{ PCI_VENDOR_ID_JMICRON, PCI_DEVICE_ID_JMICRON_JMB365,
-	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE << 8, 0xffff00, 365 },
-	{ PCI_VENDOR_ID_JMICRON, PCI_DEVICE_ID_JMICRON_JMB366,
-	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE << 8, 0xffff00, 366 },
-	{ PCI_VENDOR_ID_JMICRON, PCI_DEVICE_ID_JMICRON_JMB368,
-	  PCI_ANY_ID, PCI_ANY_ID, PCI_CLASS_STORAGE_IDE << 8, 0xffff00, 368 },
+	{ PCI_VDEVICE(JMICRON, PCI_DEVICE_ID_JMICRON_JMB361), },
+	{ PCI_VDEVICE(JMICRON, PCI_DEVICE_ID_JMICRON_JMB363), },
+	{ PCI_VDEVICE(JMICRON, PCI_DEVICE_ID_JMICRON_JMB365), },
+	{ PCI_VDEVICE(JMICRON, PCI_DEVICE_ID_JMICRON_JMB366), },
+	{ PCI_VDEVICE(JMICRON, PCI_DEVICE_ID_JMICRON_JMB368), },
 
 	{ }	/* terminate list */
 };
@@ -227,10 +223,11 @@ static void __exit jmicron_exit(void)
 }
 
 
-module_init(jmicron_init);
-module_exit(jmicron_exit);
 MODULE_AUTHOR("Dustin Thomson");
 MODULE_DESCRIPTION("SCSI low-level driver for Jmicron PATA ports");
 MODULE_LICENSE("GPL");
 MODULE_DEVICE_TABLE(pci, jmicron_pci_tbl);
 MODULE_VERSION(DRV_VERSION);
+
+module_init(jmicron_init);
+module_exit(jmicron_exit);
