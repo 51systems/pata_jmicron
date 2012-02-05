@@ -229,7 +229,7 @@ static void __exit jmicron_exit(void)
 
 module_init(jmicron_init);
 module_exit(jmicron_exit);
-MODULE_AUTHOR("Alan Cox");
+MODULE_AUTHOR("Dustin Thomson");
 MODULE_DESCRIPTION("SCSI low-level driver for Jmicron PATA ports");
 MODULE_LICENSE("GPL");
 MODULE_DEVICE_TABLE(pci, jmicron_pci_tbl);
