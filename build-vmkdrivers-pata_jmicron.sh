@@ -22,6 +22,7 @@ $GREP -o -e "-o [^ ]*\." |
 $SED -e 's?-o \(.*\)/[^/]*\.?\1?' |
 $GREP -v -e "\*" |
 $XARGS $MKDIR -p
+$MKDIR -p package/usr/lib/vmware/vmkmod
 
 # Compiler flags assume being compiled natively on a x86-64 machine
 
@@ -33,6 +34,6 @@ $CC -fwrapv -fno-working-directory -g -ggdb3 -O2 -fno-strict-aliasing -Wall -Wer
 
 
 #$LD -m elf_x86_64 -E -r -o bora/build/scons/build/vmkdriver-pata_jmicron.o/release/vmkernel64/pata_jmicron.o --whole-archive bora/build/scons/build/vmkdriver-pata_jmicron.o/release/vmkernel64/SUBDIRS/vmkdrivers/src26/drivers/ata/pata_jmicron.o bora/build/scons/build/vmkdriver-pata_jmicron.o/release/vmkernel64/SUBDIRS/vmkdrivers/src26/common/vmklinux_module.o
-$LD -r -o pata_jmicron --whole-archive pata_jmicron.o BLD/build/vmkdriver-mptspi-CUR/release/vmkernel64/SUBDIRS/vmkdrivers/src_9/common/vmklinux_module.o
+$LD -r -o package/usr/lib/vmware/vmkmod/pata_jmicron --whole-archive pata_jmicron.o BLD/build/vmkdriver-mptspi-CUR/release/vmkernel64/SUBDIRS/vmkdrivers/src_9/common/vmklinux_module.o
 
 echo "All done"
