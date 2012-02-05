@@ -1,0 +1,10 @@
+# Vendors, devices and subsystems.
+
+# Syntax:
+# vendor  vendor_name
+#       device  device_name                             <-- single tab
+#               subvendor subdevice  subsystem_name     <-- two tabs
+
+
+197b  JMicron Technology Corp.
+	2368  JMB368 IDE controller
