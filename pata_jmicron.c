@@ -106,7 +106,6 @@ static int jmicron_pre_reset(struct ata_link *link, unsigned long deadline)
  *	LOCKING:
  *	None (inherited from caller).
  */
-
 static void jmicron_error_handler(struct ata_port *ap)
 {
 	ata_bmdma_drive_eh(ap, jmicron_pre_reset, ata_std_softreset, NULL, ata_std_postreset);
@@ -150,13 +149,16 @@ static struct ata_port_operations jmicron_ops = {
 		.bmdma_start		= ata_bmdma_start,
 		.bmdma_stop		= ata_bmdma_stop,
 		.bmdma_status		= ata_bmdma_status,
+
 		.qc_prep		= ata_qc_prep,
 		.qc_issue		= ata_qc_issue_prot,
+
 		.data_xfer		= ata_data_xfer,
 
 		/* IRQ-related hooks */
 		.irq_handler		= ata_interrupt,
 		.irq_clear		= ata_bmdma_irq_clear,
+		.irq_on		= ata_irq_on,
 
 		/* Generic PATA PCI ATA helpers */
 		.port_start		= ata_port_start,
@@ -179,17 +181,17 @@ static int jmicron_init_one (struct pci_dev *pdev, const struct pci_device_id *i
 {
         static const struct ata_port_info info = {
         		.sht		= &jmicron_sht,
-                .flags  = ATA_FLAG_SLAVE_POSS | ATA_FLAG_SRST,
+                .flags  = ATA_FLAG_SLAVE_POSS,
 
-                .pio_mask       = ATA_PIO4,
-                .mwdma_mask     = ATA_MWDMA2,
-                .udma_mask      = ATA_UDMA5,
+                .pio_mask	= 0x1f,
+				.mwdma_mask	= 0x07,
+				.udma_mask 	= 0x3f,
 
                 .port_ops       = &jmicron_ops,
         };
 
         struct ata_port_info port = info;
-        const struct ata_port_info *ppi[] = { &port, NULL };
+        const struct ata_port_info *ppi[] = { &port, &port };
 
         return ata_pci_init_one(pdev, ppi);
 }
@@ -223,7 +225,7 @@ static void __exit jmicron_exit(void)
 }
 
 
-MODULE_AUTHOR("Dustin Thomson");
+MODULE_AUTHOR("Alan Cox");
 MODULE_DESCRIPTION("SCSI low-level driver for Jmicron PATA ports");
 MODULE_LICENSE("GPL");
 MODULE_DEVICE_TABLE(pci, jmicron_pci_tbl);
